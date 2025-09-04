@@ -1,6 +1,7 @@
 import Button from "../components/ui/button.js";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { Lock, Mail } from "lucide-react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 import InputField from "../components/ui/input.js";
@@ -74,7 +75,7 @@ const RegisterPage: React.FC = () => {
           <TaskMasterLogo />
           <h1 className="mt-8 text-3xl font-bold text-white">TaskMaster</h1>
         </header>
-        <h2 className="mt-8 text-2xl font-bold tracking-tight text-white">
+        <h2 className="mt-8 text-1.5xl font-bold tracking-tight text-white">
           Crie Sua Conta
         </h2>
         <p className="mt-2.5 font-bold text-sm text-gray-600">
@@ -85,16 +86,17 @@ const RegisterPage: React.FC = () => {
         <form className="space-y-4" onSubmit={handleSubmit}>
           <InputField
             id="email"
+            icon={Mail}
             label="Email"
             type="email"
             value={email}
-            // Tipagem para o evento do input (React.ChangeEvent)
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEmail(e.target.value)
             }
           />
           <InputField
             id="password"
+            icon={Lock}
             label="Senha"
             type="password"
             value={password}
@@ -113,7 +115,7 @@ const RegisterPage: React.FC = () => {
           />
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
           <div className="mt-7">
-            <Button>Registrar</Button>
+            <Button type="submit">Registrar</Button>
           </div>
         </form>
         <div className="mt-5 font-bold text-sm flex justify-center items-center text-gray-600">

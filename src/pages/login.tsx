@@ -1,5 +1,3 @@
-// src/pages/LoginPage.tsx
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Lock, Mail } from "lucide-react";
@@ -8,7 +6,6 @@ import { auth } from "../config/firebase";
 import InputField from "../components/ui/input.js";
 import Button from "../components/ui/button.js";
 
-// Tipagem do componente do Logo
 const TaskMasterLogo: React.FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -70,10 +67,6 @@ const LoginPage: React.FC = () => {
           <TaskMasterLogo />
           <h1 className="mt-8 text-3xl font-bold text-white">TaskMaster</h1>
         </header>
-        <h2 className="mt-6 text-2xl font-bold tracking-tight text-white">
-          Bem Vindo de Volta
-        </h2>
-
         <div className="mt-2 font-bold text-sm flex justify-center items-center text-gray-600">
           <p className="text-gray-600">Novo por aqui?</p>
           <Link

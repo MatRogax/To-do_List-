@@ -1,5 +1,3 @@
-// src/components/NavItem.tsx
-
 import React from "react";
 
 interface NavItemProps {
