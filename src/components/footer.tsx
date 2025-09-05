@@ -4,8 +4,8 @@ import TaskMasterLogo from "./logo";
 function Footer() {
   return (
     <footer className="bg-[#1F2937] border-t border-gray-700 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-4">
               <TaskMasterLogo width={40} height={40} />
@@ -20,7 +20,7 @@ function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://github.com"
+                href="https://github.com/MatRogax"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors duration-200"
@@ -28,7 +28,7 @@ function Footer() {
                 <Github className="h-5 w-5" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/matheus-rogato/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors duration-200"
@@ -36,7 +36,9 @@ function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a
-                href="mailto:contato@taskmaster.com"
+                href="mailto:matheusrogato@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors duration-200"
               >
                 <Mail className="h-5 w-5" />
@@ -101,7 +103,9 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://github.com/MatRogax/To-do_List-"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   Documentação
@@ -137,7 +141,7 @@ function Footer() {
             </div>
           </div>
           <div className="text-center mt-6 text-sm text-gray-500">
-            <span className="flex items-center justify-center">
+            <span className="flex items-center justify-center flex-wrap">
               Feito por @Matheus Rogato Lopes
             </span>
           </div>

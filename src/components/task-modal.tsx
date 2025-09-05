@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { X } from "lucide-react";
 import { Timestamp, doc, updateDoc } from "firebase/firestore";
+import { X } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { db } from "../config/firebase";
 import { useAuth } from "../hooks/use-auth";
 
@@ -19,7 +19,7 @@ interface TaskModalProps {
   isOpen: boolean;
   onClose: () => void;
   task?: Task | null;
-  onAddTask?: (title: string, completed?: boolean) => Promise<boolean>;
+  onAddTask?: (title: string) => Promise<boolean>;
 }
 
 const TaskModal: React.FC<TaskModalProps> = ({
@@ -71,7 +71,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
           alert("Erro: Função de adicionar tarefa não disponível.");
           return;
         }
-        const success = await onAddTask(trimmedTitle, false);
+        const success = await onAddTask(trimmedTitle);
         if (!success) {
           console.error("Erro ao adicionar tarefa");
           alert("Não foi possível adicionar a tarefa.");
@@ -97,7 +97,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
       <div className="bg-[#1F2937] rounded-lg shadow-xl w-full max-w-md mx-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-600">
           <h2 className="text-xl font-bold text-white">
@@ -159,19 +159,19 @@ const TaskModal: React.FC<TaskModalProps> = ({
               </div>
             </div>
           )}
-          <div className="flex justify-end gap-3 pt-4">
+          <div className="flex flex-col sm:flex-row sm:justify-end gap-3 pt-4">
             <button
               type="button"
               onClick={handleClose}
               disabled={isLoading}
-              className="px-4 py-2 bg-[#2D3748] border border-gray-600 text-gray-300 rounded-lg font-medium hover:bg-gray-600 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-[#2D3748] border border-gray-600 text-gray-300 rounded-lg font-medium hover:bg-gray-600 transition-all duration-300 hover:shadow-md transform hover:scale-105 active:scale-95 disabled:opacity-50 w-full sm:w-auto animate-fadeIn"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={!title.trim() || isLoading}
-              className="px-4 py-2 bg-[#2D3748] border border-gray-600 text-gray-300 rounded-lg font-medium hover:bg-gray-600 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 transform hover:scale-105 active:scale-95 disabled:opacity-50 w-full sm:w-auto animate-fadeIn"
             >
               {isLoading ? "Salvando..." : "Salvar Alterações"}
             </button>

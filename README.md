@@ -1,69 +1,91 @@
-# React + TypeScript + Vite
+# TaskMaster 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TaskMaster é um aplicativo de gerenciamento de tarefas (To-Do list) moderno e funcional, construído com React, TypeScript e Firebase. Ele permite que os usuários gerenciem suas atividades diárias de forma eficiente, com uma interface limpa, reativa e totalmente responsiva.
 
-Currently, two official plugins are available:
+Este projeto foi desenvolvido com foco em uma arquitetura de software limpa e escalável, utilizando hooks customizados para uma clara separação de responsabilidades entre a interface do usuário (UI) e a lógica de negócios.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📋 Tabela de Conteúdos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* [Funcionalidades Principais](#-funcionalidades-principais)
+* [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+* [Arquitetura do Projeto](#-arquitetura-do-projeto)
+* [Como Executar o Projeto Localmente](#-como-executar-o-projeto-localmente)
+* [Estrutura de Pastas](#-estrutura-de-pastas)
+* [Licença](#-licença)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ✨ Funcionalidades Principais
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+* **🔐 Autenticação de Usuários:** Sistema completo de login e logout utilizando **Firebase Auth**.
+* **📝 CRUD de Tarefas e Listas:** Crie, edite e delete tarefas e listas personalizadas de forma intuitiva.
+* **⚡ Atualizações em Tempo Real:** A interface é sincronizada instantaneamente com o banco de dados **Firestore**.
+* **📂 Filtros Inteligentes:** Organize e visualize tarefas por "Inbox", "Hoje", "Importante" e "Concluídas".
+* **🔍 Busca Rápida:** Encontre qualquer tarefa de forma instantânea.
+* **📱 Design Responsivo (Mobile-First):** Experiência de uso perfeita em qualquer dispositivo, do celular ao desktop.
+* **🎨 Interface Moderna:** Design com tema escuro (dark mode), construído com **Tailwind CSS**.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🛠️ Tecnologias Utilizadas
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+* **Frontend:**
+    * **[React](https://react.dev/)**
+    * **[TypeScript](https://www.typescriptlang.org/)**
+    * **[Vite](https://vitejs.dev/)**
+    * **[Tailwind CSS](https://tailwindcss.com/)**
+* **Backend & Banco de Dados:**
+    * **[Firebase](https://firebase.google.com/)** (Authentication e Firestore)
+* **UI & Roteamento:**
+    * **[Lucide React](https://lucide.dev/)** (Ícones)
+    * **[React Router DOM](https://reactrouter.com/)**
+
+---
+
+## 🏗️ Arquitetura do Projeto
+
+A arquitetura do TaskMaster foi desenhada para ser limpa, componentizada e de fácil manutenção:
+
+* **Separação de Responsabilidades (SoC):** A lógica de interação com o backend é totalmente isolada da camada de apresentação através de hooks customizados.
+* **Hooks Customizados:**
+    * `useTaskManager`: Centraliza todas as operações de CRUD e a busca de dados do Firestore para tarefas e listas.
+    * `useAuth`: Gerencia o estado de autenticação do usuário.
+* **Componentização:** A UI é dividida em pequenos componentes de apresentação, reutilizáveis e focados em uma única responsabilidade, localizados em `src/components`.
+
+---
+
+## 🚀 Como Executar o Projeto Localmente
+
+Siga os passos abaixo para configurar e executar o TaskMaster em sua máquina.
+
+### Pré-requisitos
+
+* **Node.js** (versão 18 ou superior)
+* **Yarn** ou **npm**
+* Uma conta no **[Firebase](https://firebase.google.com/)** para configurar o backend.
+
+### Passos
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/seu-usuario/taskmaster.git](https://github.com/seu-usuario/taskmaster.git)
+    ```
+
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    # ou
+    yarn install
+    ```
+
+3.  **Configure as variáveis de ambiente:**
+    Para conectar a aplicação ao seu backend, crie um arquivo chamado `.env.local` na raiz do projeto. Copie e cole o conteúdo abaixo, substituindo os valores pelas credenciais do **seu projeto Firebase**.
+
+    ```.env.local
+    VITE_FIREBASE_API_KEY="SUA_API_KEY"
+    VITE_FIREBASE_AUTH_DOMAIN="SEU_AUTH_DOMAIN"
+    VITE_FIREBASE_PROJECT_ID="SEU_PROJECT_ID"
+    VITE_FIREBASE_STORAGE_BUCKET="SEU_STORAGE_BUCKET"
+    

@@ -1,62 +1,55 @@
-import Button from "../components/ui/button.js";
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { Lock, Mail } from "lucide-react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase";
+import { Lock, Mail } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import TaskMasterLogo from "../components/logo.js";
+import Button from "../components/ui/button.js";
 import InputField from "../components/ui/input.js";
-
-const TaskMasterLogo: React.FC = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    x="0px"
-    y="0px"
-    width="100"
-    height="100"
-    viewBox="0 0 48 48"
-  >
-    <path
-      fill="#185abd"
-      d="M24.48,29.316l-9.505,9.505L1.588,25.434c-0.784-0.784-0.784-2.054,0-2.838l6.667-6.667 c0.784-0.784,2.054-0.784,2.838,0L24.48,29.316z"
-    ></path>
-    <linearGradient
-      id="5qKAcydctVb3hkGT27jhwa_HpPqCqynotVp_gr1"
-      x1="14.572"
-      x2="43.188"
-      y1="38.199"
-      y2="9.583"
-      gradientUnits="userSpaceOnUse"
-    >
-      <stop offset="0" stop-color="#4191fd"></stop>
-      <stop offset="1" stop-color="#55acfd"></stop>
-    </linearGradient>
-    <path
-      fill="url(#5qKAcydctVb3hkGT27jhwa_HpPqCqynotVp_gr1)"
-      d="M17.797,41.642l-6.667-6.667c-0.784-0.784-0.784-2.054,0-2.838L36.907,6.358  c0.784-0.784,2.054-0.784,2.838,0l6.667,6.667c0.784,0.784,0.784,2.054,0,2.838L20.634,41.642  C19.851,42.425,18.58,42.425,17.797,41.642z"
-    ></path>
-  </svg>
-);
+import { auth } from "../config/firebase";
+import { useLoading } from "../context/loading-context";
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
 
   const navigate = useNavigate();
+  const { startLoading, stopLoading } = useLoading();
+
+  const validatePasswords = () => {
+    if (password && confirmPassword) {
+      if (password !== confirmPassword) {
+        setPasswordsMatch(false);
+        setError("As senhas não coincidem.");
+      } else {
+        setPasswordsMatch(true);
+        setError("");
+      }
+    }
+  };
+
+  useEffect(() => {
+    validatePasswords();
+  }, [password, confirmPassword]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
 
-    if (password !== confirmPassword) {
-      setError("As senhas não coincidem.");
+    validatePasswords();
+
+    if (!passwordsMatch || password !== confirmPassword) {
       return;
     }
 
+    startLoading("Criando sua conta...");
+    
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       navigate("/todo-list");
+      stopLoading();
     } catch (err: unknown) {
       if (err === "auth/email-already-in-use") {
         setError("Email já está em uso.");
@@ -65,6 +58,7 @@ const RegisterPage: React.FC = () => {
       } else {
         setError("Ocorreu um erro ao criar a conta.");
       }
+      stopLoading();
     }
   };
 
@@ -100,18 +94,19 @@ const RegisterPage: React.FC = () => {
             label="Senha"
             type="password"
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setPassword(e.target.value);
+            }}
           />
           <InputField
             id="confirm-password"
+            icon={Lock}
             label="Confirmar Senha"
             type="password"
             value={confirmPassword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setConfirmPassword(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setConfirmPassword(e.target.value);
+            }}
           />
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
           <div className="mt-7">

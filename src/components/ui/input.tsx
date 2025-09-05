@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
@@ -18,10 +19,18 @@ const InputField: React.FC<InputFieldProps> = ({
   icon: IconComponent,
   ...props
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  
+  const inputType = type === "password" ? (showPassword ? "text" : "password") : type;
   const baseInputClasses = `
     block w-full rounded-md bg-white/5 py-1.5 text-sm text-white 
     outline-1 outline-white/10 placeholder:text-gray-500 
-    focus:outline-2 focus:outline-blue-500 transition
+    focus:outline-2 focus:outline-blue-500 transition-all duration-300
+    focus:shadow-md focus:shadow-blue-500/20 animate-fadeIn
   `;
 
   const inputWithIconClasses = `${baseInputClasses} ${
@@ -45,15 +54,30 @@ const InputField: React.FC<InputFieldProps> = ({
         <input
           id={id}
           name={id}
-          type={type}
+          type={inputType}
           value={value}
           onChange={onChange}
           required
           autoComplete={id}
-          className={inputWithIconClasses}
+          className={`${inputWithIconClasses} ${type === "password" ? "pr-10" : ""}`}
           placeholder={label}
           {...props}
         />
+        {type === "password" && (
+          <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="text-gray-400 hover:text-white focus:outline-none"
+            >
+              {showPassword ? (
+                <EyeOff className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <Eye className="h-5 w-5" aria-hidden="true" />
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -22,9 +22,9 @@ const NavItem: React.FC<NavItemProps> = ({
           onClick();
         }
       }}
-      className={`flex items-center p-2 rounded-md transition-colors cursor-pointer ${
+      className={`flex items-center p-2 rounded-md transition-all duration-200 cursor-pointer transform hover:scale-105 ${
         active
-          ? "bg-gray-700 text-white"
+          ? "bg-gray-700 text-white animate-slideIn"
           : "text-gray-400 hover:bg-gray-700 hover:text-white"
       }`}
     >
