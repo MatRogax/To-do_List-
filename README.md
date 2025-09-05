@@ -50,7 +50,6 @@ A arquitetura do TaskMaster foi desenhada para ser limpa, componentizada e de f�
 
 * **Separação de Responsabilidades (SoC):** A lógica de interação com o backend é totalmente isolada da camada de apresentação através de hooks customizados.
 * **Hooks Customizados:**
-    * `useTaskManager`: Centraliza todas as operações de CRUD e a busca de dados do Firestore para tarefas e listas.
     * `useAuth`: Gerencia o estado de autenticação do usuário.
 * **Componentização:** A UI é dividida em pequenos componentes de apresentação, reutilizáveis e focados em uma única responsabilidade, localizados em `src/components`.
 
