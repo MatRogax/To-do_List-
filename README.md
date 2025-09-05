@@ -4,7 +4,10 @@ TaskMaster é um aplicativo de gerenciamento de tarefas (To-Do list) moderno e f
 
 Este projeto foi desenvolvido com foco em uma arquitetura de software limpa e escalável, utilizando hooks customizados para uma clara separação de responsabilidades entre a interface do usuário (UI) e a lógica de negócios.
 
+Link do projeto: [TODO-list](https://todo-list-471b4.web.app/)
+
 ---
+
 
 ## 📋 Tabela de Conteúdos
 
